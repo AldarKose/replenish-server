@@ -1,2 +1,39 @@
-version: "3.9"
-services: {}
+services:
+  postgres:
+    image: postgres:16
+    container_name: replenish_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: ${TZ}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    restart: unless-stopped
+
+  api:
+    image: ghcr.io/<YOUR_GITHUB_USER>/replenish-api:latest
+    container_name: replenish_api
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      API_KEY: ${API_KEY}
+      TZ: ${TZ}
+    depends_on:
+      - postgres
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  worker:
+    image: ghcr.io/<YOUR_GITHUB_USER>/replenish-worker:latest
+    container_name: replenish_worker
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      TZ: ${TZ}
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+volumes:
+  pgdata:
