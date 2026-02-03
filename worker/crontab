@@ -1,1 +1,2 @@
+0 2 * * * python /app/worker_run.py >> /var/log/worker.log 2>&1
 
