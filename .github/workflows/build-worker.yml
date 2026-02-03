@@ -29,4 +29,4 @@ jobs:
           context: ./worker
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/replenish-worker:latest
+            ghcr.io/aldarkose/replenish-worker:latest
