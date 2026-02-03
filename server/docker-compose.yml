@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
 
   api:
-    image: ghcr.io/<YOUR_GITHUB_USER>/replenish-api:latest
+    image: ghcr.io/aldarkose/replenish-api:latest
     container_name: replenish_api
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
@@ -26,7 +26,7 @@ services:
     restart: unless-stopped
 
   worker:
-    image: ghcr.io/<YOUR_GITHUB_USER>/replenish-worker:latest
+    image: ghcr.io/aldarkose/replenish-worker:latest
     container_name: replenish_worker
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
