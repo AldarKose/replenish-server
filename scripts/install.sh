@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="<YOUR_GITHUB_USER>/replenish-server"
+REPO="AldarKose/replenish-server"
 APP_DIR="/opt/replenish"
 TZ_DEFAULT="Europe/Berlin"
 
